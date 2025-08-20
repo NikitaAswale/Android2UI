@@ -11,18 +11,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.Build
-import androidx.compose.material.icons.outlined.Call
 import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material.icons.outlined.DateRange
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.LocationOn
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.MailOutline
 import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,40 +36,61 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun AndroidUI_2(){
-    Column (modifier = Modifier.fillMaxSize().background(Color(0xFFFDEBFF))){
-        Row (modifier = Modifier.fillMaxWidth().padding(12.dp),
+fun AndroidUI_2() {
+    Column(modifier = Modifier.fillMaxSize().background(Color(0xFFFDEBFF))) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(12.dp),
             horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.Top){
-            Text(text = "interests", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+            verticalAlignment = Alignment.Top
+        ) {
+            Text(text = "Interests", fontSize = 24.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+
         }
 
-        Row (modifier = Modifier.fillMaxWidth().padding(8.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.Top){
-            Icon(imageVector = Icons.Outlined.AccountCircle, contentDescription = "",
-                modifier = Modifier.size(48.dp).background(Color(0xFFFFB6C1))
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.AccountCircle, contentDescription = "",
+                    modifier = Modifier.size(48.dp),
+                    tint = Color(0xFFFFB6C1)
+                )
 
-            Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(8.dp))
 
-            Text(text = "Accessibility", fontSize = 16.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+                Text(
+                    text = "Accessibility",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
 
-            Box(modifier = Modifier.fillMaxWidth()){
-                Row(modifier = Modifier.fillMaxWidth().padding(4.dp), horizontalArrangement = Arrangement.End,
-                    verticalAlignment = Alignment.CenterVertically){
-                    Icon(imageVector = Icons.Outlined.CheckCircle, contentDescription = "",
-                        modifier = Modifier.size(32.dp).background(Color(0xFFFFB6C1))
-                    )
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(4.dp),
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.CheckCircle, contentDescription = "",
+                            modifier = Modifier.size(32.dp)
+                                .background(Color(0xFFFFB6C1), shape = CircleShape)
+                        )
+                    }
                 }
             }
 
-            Row (modifier = Modifier.fillMaxWidth().padding(8.dp),
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
                 horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.Top) {
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
                     imageVector = Icons.Outlined.Build, contentDescription = "",
-                    modifier = Modifier.size(48.dp).background(Color(0xFFFFB6C1))
+                    modifier = Modifier.size(48.dp),
+                    tint = Color(0xFFFFB6C1)
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))
@@ -83,7 +105,7 @@ fun AndroidUI_2(){
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Row(
                         modifier = Modifier.fillMaxWidth().padding(4.dp),
-                        //horizontalArrangement = Arrangement.End,
+                        horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
@@ -94,12 +116,15 @@ fun AndroidUI_2(){
                 }
             }
 
-            Row (modifier = Modifier.fillMaxWidth().padding(8.dp),
-                //horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.Top) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
-                    imageVector = Icons.Outlined.Call, contentDescription = "",
-                    modifier = Modifier.size(48.dp).background(Color(0xFFFFB6C1))
+                    imageVector = Icons.Outlined.Menu, contentDescription = "",
+                    modifier = Modifier.size(48.dp),
+                    tint = Color(0xFFFFB6C1)
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))
@@ -114,23 +139,27 @@ fun AndroidUI_2(){
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Row(
                         modifier = Modifier.fillMaxWidth().padding(4.dp),
-                       // horizontalArrangement = Arrangement.End,
+                        horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.CheckCircle, contentDescription = "",
-                            modifier = Modifier.size(32.dp).background(Color(0xFFFFB6C1))
+                            modifier = Modifier.size(32.dp)
+                                .background(Color(0xFFFFB6C1), shape = CircleShape)
                         )
                     }
                 }
             }
 
-            Row (modifier = Modifier.fillMaxWidth().padding(8.dp),
-                //horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.Top) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
-                    imageVector = Icons.Outlined.Create, contentDescription = "",
-                    modifier = Modifier.size(48.dp).background(Color(0xFFFFB6C1))
+                    imageVector = Icons.Outlined.DateRange, contentDescription = "",
+                    modifier = Modifier.size(48.dp),
+                    tint = Color(0xFFFFB6C1)
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))
@@ -156,14 +185,16 @@ fun AndroidUI_2(){
                 }
             }
 
-            Row (modifier = Modifier.fillMaxWidth().padding(8.dp),
-                //horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
-                    imageVector = Icons.Outlined.Home, contentDescription = "",
-                    modifier = Modifier.size(48.dp).background(Color(0xFFFFB6C1))
+                    imageVector = Icons.Outlined.MailOutline, contentDescription = "",
+                    modifier = Modifier.size(48.dp),
+                    tint = Color(0xFFFFB6C1)
                 )
-
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
@@ -176,56 +207,28 @@ fun AndroidUI_2(){
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Row(
                         modifier = Modifier.fillMaxWidth().padding(4.dp),
-                       // horizontalArrangement = Arrangement.End,
+                        horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.CheckCircle, contentDescription = "",
-                            modifier = Modifier.size(32.dp).background(Color(0xFFFFB6C1))
+                            modifier = Modifier.size(32.dp)
+                                .background(Color(0xFFFFB6C1), shape = CircleShape)
                         )
-                    }
-                }
-
-                Row (modifier = Modifier.fillMaxWidth().padding(8.dp),
-                   // horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Outlined.Menu, contentDescription = "",
-                        modifier = Modifier.size(48.dp).background(Color(0xFFFFB6C1))
-                    )
-
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    Text(
-                        text = "Compose",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center
-                    )
-
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth().padding(4.dp),
-                            horizontalArrangement = Arrangement.End,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.CheckCircle, contentDescription = "",
-                                modifier = Modifier.size(32.dp).background(Color(0xFFFFB6C1))
-                            )
-                        }
                     }
                 }
             }
 
-            Row (modifier = Modifier.fillMaxWidth().padding(8.dp),
-              //  horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
-                    imageVector = Icons.Outlined.LocationOn, contentDescription = "",
-                    modifier = Modifier.size(48.dp).background(Color(0xFFFFB6C1))
+                    imageVector = Icons.Outlined.Info, contentDescription = "",
+                    modifier = Modifier.size(48.dp),
+                    tint = Color(0xFFFFB6C1)
                 )
-
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
@@ -248,33 +251,80 @@ fun AndroidUI_2(){
                     }
                 }
             }
-        }
 
-        Row (modifier = Modifier.fillMaxWidth().padding(4.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.Bottom){
-            Column (modifier = Modifier,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center){
-                Icon(imageVector = Icons.Outlined.Build, contentDescription = "",
-                    modifier = Modifier.size(16.dp))
-                Text(text = "For You", fontSize = 12.sp, fontWeight = FontWeight.Normal)
-            }
-            Column (modifier = Modifier,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center){
-                Icon(imageVector = Icons.Outlined.DateRange, contentDescription = "",
-                    modifier = Modifier.size(16.dp))
-                Text(text = "Shared", fontSize = 12.sp, fontWeight = FontWeight.Normal)
-            }
-            Column (modifier = Modifier,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center){
-                Icon(imageVector = Icons.Outlined.AddCircle, contentDescription = "",
-                    modifier = Modifier.size(16.dp).background(Color(0xFFFFB6C1))
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.ShoppingCart, contentDescription = "",
+                    modifier = Modifier.size(48.dp),
+                    tint = (Color(0xFFFFB6C1))
                 )
-                Text(text = "Interested", fontSize = 12.sp, fontWeight = FontWeight.Normal)
+                Spacer(modifier = Modifier.width(8.dp))
+
+                Text(
+                    text = "Compose",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(4.dp),
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.CheckCircle, contentDescription = "",
+                            modifier = Modifier.size(32.dp)
+                                .background(Color(0xFFFFB6C1), shape = CircleShape)
+                        )
+                    }
+                }
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(4.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.Bottom
+            ) {
+                Column(
+                    modifier = Modifier,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Build, contentDescription = "",
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Text(text = "For You", fontSize = 12.sp, fontWeight = FontWeight.Normal)
+                }
+                Column(
+                    modifier = Modifier,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.DateRange, contentDescription = "",
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Text(text = "Shared", fontSize = 12.sp, fontWeight = FontWeight.Normal)
+                }
+                Column(
+                    modifier = Modifier,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.AddCircle, contentDescription = "",
+                        modifier = Modifier.size(16.dp)
+                            .background(Color(0xFFFFB6C1), shape = CircleShape)
+                    )
+                    Text(text = "Interested", fontSize = 12.sp, fontWeight = FontWeight.Normal)
+                }
             }
         }
     }
-}
