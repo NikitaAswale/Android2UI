@@ -1,9 +1,10 @@
 package com.example.androidui2.ui.theme
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,10 +16,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -33,7 +38,7 @@ data class InterestItem(
     val category: String = ""
 )
 
-// Modern Interest Card Component
+// Modern Interest Card Component with enhanced animations
 @Composable
 fun InterestCard(
     item: InterestItem,
@@ -41,9 +46,16 @@ fun InterestCard(
     modifier: Modifier = Modifier
 ) {
     var isPressed by remember { mutableStateOf(false) }
+    var isHovered by remember { mutableStateOf(false) }
+
     val scale by animateFloatAsState(
         targetValue = if (isPressed) 0.95f else 1f,
         animationSpec = tween(durationMillis = 150)
+    )
+
+    val elevation by animateFloatAsState(
+        targetValue = if (isHovered) 16f else 8f,
+        animationSpec = tween(durationMillis = 200)
     )
 
     Card(
@@ -51,13 +63,24 @@ fun InterestCard(
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .shadow(
-                elevation = 8.dp,
+                elevation = elevation.dp,
                 shape = RoundedCornerShape(16.dp)
             )
             .clip(RoundedCornerShape(16.dp))
             .clickable {
                 isPressed = true
                 onClick()
+            }
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = {
+                        isPressed = true
+                        isHovered = true
+                        tryAwaitRelease()
+                        isPressed = false
+                        isHovered = false
+                    }
+                )
             },
         colors = CardDefaults.cardColors(
             containerColor = CardBackground
@@ -69,10 +92,21 @@ fun InterestCard(
                 .padding(20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Icon with gradient background
+            // Icon with gradient background and pulse animation
+            val infiniteTransition = rememberInfiniteTransition()
+            val pulseScale by infiniteTransition.animateFloat(
+                initialValue = 1f,
+                targetValue = if (item.isCompleted) 1.1f else 1f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(1000, easing = LinearEasing),
+                    repeatMode = RepeatMode.Reverse
+                )
+            )
+
             Box(
                 modifier = Modifier
                     .size(56.dp)
+                    .scale(pulseScale)
                     .clip(RoundedCornerShape(16.dp))
                     .background(
                         brush = Brush.linearGradient(
@@ -91,7 +125,7 @@ fun InterestCard(
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            // Title and category
+            // Title and category with improved layout
             Column(
                 modifier = Modifier.weight(1f)
             ) {
@@ -99,33 +133,64 @@ fun InterestCard(
                     text = item.title,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = TextPrimary
+                    color = TextPrimary,
+                    maxLines = 1
                 )
                 if (item.category.isNotEmpty()) {
-                    Text(
-                        text = item.category,
-                        fontSize = 14.sp,
-                        color = TextSecondary,
-                        fontWeight = FontWeight.Normal
-                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = PrimaryAccent.copy(alpha = 0.1f),
+                        modifier = Modifier.width(80.dp)
+                    ) {
+                        Text(
+                            text = item.category,
+                            fontSize = 12.sp,
+                            color = PrimaryAccent,
+                            fontWeight = FontWeight.Medium,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+                            maxLines = 1
+                        )
+                    }
                 }
             }
 
-            // Status indicator
+            // Enhanced status indicator with animation
+            val rotation by infiniteTransition.animateFloat(
+                initialValue = 0f,
+                targetValue = if (!item.isCompleted) 360f else 0f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(2000, easing = LinearEasing),
+                    repeatMode = RepeatMode.Restart
+                )
+            )
+
             Box(
                 modifier = Modifier
-                    .size(40.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .size(44.dp)
+                    .clip(RoundedCornerShape(14.dp))
                     .background(
-                        if (item.isCompleted) SuccessColor else WarningColor.copy(alpha = 0.2f)
-                    ),
+                        if (item.isCompleted) {
+                            Brush.linearGradient(
+                                colors = listOf(SuccessColor, SuccessColor.copy(alpha = 0.8f))
+                            )
+                        } else {
+                            Brush.linearGradient(
+                                colors = listOf(
+                                    WarningColor.copy(alpha = 0.3f),
+                                    WarningColor.copy(alpha = 0.1f)
+                                )
+                            )
+                        }
+                    )
+                    .rotate(if (!item.isCompleted) rotation else 0f),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = if (item.isCompleted) Icons.Outlined.CheckCircle else Icons.Outlined.Add,
                     contentDescription = if (item.isCompleted) "Completed" else "Add",
                     tint = if (item.isCompleted) Color.White else WarningColor,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(22.dp)
                 )
             }
         }
@@ -206,6 +271,73 @@ fun ModernBottomNavigation(
     }
 }
 
+// Search Bar Component
+@Composable
+fun SearchBar(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var isFocused by remember { mutableStateOf(false) }
+
+    Surface(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .padding(horizontal = 16.dp)
+            .shadow(
+                elevation = if (isFocused) 12.dp else 4.dp,
+                shape = RoundedCornerShape(16.dp)
+            ),
+        shape = RoundedCornerShape(16.dp),
+        color = CardBackground
+    ) {
+        TextField(
+            value = query,
+            onValueChange = onQueryChange,
+            modifier = Modifier
+                .fillMaxSize()
+                .onFocusChanged { isFocused = it.isFocused },
+            placeholder = {
+                Text(
+                    "Search interests...",
+                    color = TextSecondary,
+                    fontSize = 16.sp
+                )
+            },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Outlined.Search,
+                    contentDescription = "Search",
+                    tint = PrimaryAccent,
+                    modifier = Modifier.size(20.dp)
+                )
+            },
+            trailingIcon = if (query.isNotEmpty()) {
+                {
+                    IconButton(onClick = { onQueryChange("") }) {
+                        Icon(
+                            imageVector = Icons.Outlined.Clear,
+                            contentDescription = "Clear",
+                            tint = TextSecondary,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
+            } else null,
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent
+            ),
+            singleLine = true
+        )
+    }
+}
+
 @Composable
 fun AndroidUI_2() {
     val interests = listOf(
@@ -217,6 +349,20 @@ fun AndroidUI_2() {
         InterestItem("Camera & Media", Icons.Outlined.Info, false, "Multimedia"),
         InterestItem("Compose", Icons.Outlined.ShoppingCart, true, "UI Framework")
     )
+
+    var searchQuery by remember { mutableStateOf("") }
+
+    // Filter interests based on search query
+    val filteredInterests = remember(searchQuery) {
+        if (searchQuery.isBlank()) {
+            interests
+        } else {
+            interests.filter {
+                it.title.contains(searchQuery, ignoreCase = true) ||
+                it.category.contains(searchQuery, ignoreCase = true)
+            }
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -253,18 +399,58 @@ fun AndroidUI_2() {
                 }
             }
 
-            // Interests List
-            LazyColumn(
-                modifier = Modifier.weight(1f),
-                contentPadding = PaddingValues(bottom = 100.dp)
-            ) {
-                items(interests) { interest ->
-                    InterestCard(
-                        item = interest,
-                        onClick = {
-                            // Handle click - you can add navigation or other actions here
-                        }
-                    )
+            // Search Bar
+            SearchBar(
+                query = searchQuery,
+                onQueryChange = { searchQuery = it },
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+
+            // Interests List or Empty State
+            if (filteredInterests.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Search,
+                            contentDescription = "No results",
+                            modifier = Modifier.size(64.dp),
+                            tint = TextSecondary.copy(alpha = 0.5f)
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = "No interests found",
+                            fontSize = 18.sp,
+                            color = TextSecondary,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Text(
+                            text = "Try adjusting your search",
+                            fontSize = 14.sp,
+                            color = TextSecondary.copy(alpha = 0.7f)
+                        )
+                    }
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier.weight(1f),
+                    contentPadding = PaddingValues(bottom = 100.dp)
+                ) {
+                    items(filteredInterests) { interest ->
+                        InterestCard(
+                            item = interest,
+                            onClick = {
+                                // Handle click - you can add navigation or other actions here
+                            }
+                        )
+                    }
                 }
             }
         }
