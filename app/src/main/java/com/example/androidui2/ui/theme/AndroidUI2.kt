@@ -15,6 +15,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
@@ -376,26 +377,61 @@ fun AndroidUI_2() {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            // Header
+            // Enhanced Header with subtle animation
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(24.dp)
             ) {
                 Column {
-                    Text(
-                        text = "Interests",
-                        fontSize = 32.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = TextPrimary
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "Discover what matters to you",
-                        fontSize = 16.sp,
-                        color = TextSecondary,
-                        fontWeight = FontWeight.Normal
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    ) {
+                        // Animated sparkles icon
+                        val infiniteTransition = rememberInfiniteTransition()
+                        val sparkleAlpha by infiniteTransition.animateFloat(
+                            initialValue = 0.3f,
+                            targetValue = 1f,
+                            animationSpec = infiniteRepeatable(
+                                animation = tween(1500, easing = LinearEasing),
+                                repeatMode = RepeatMode.Reverse
+                            )
+                        )
+
+                        Icon(
+                            imageVector = Icons.Outlined.Star,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(24.dp)
+                                .alpha(sparkleAlpha),
+                            tint = PrimaryAccent
+                        )
+
+                        Spacer(modifier = Modifier.width(12.dp))
+
+                        Text(
+                            text = "Interests",
+                            fontSize = 32.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = TextPrimary
+                        )
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = PrimaryAccent.copy(alpha = 0.1f),
+                        modifier = Modifier.width(200.dp)
+                    ) {
+                        Text(
+                            text = "Discover what matters to you",
+                            fontSize = 16.sp,
+                            color = PrimaryAccent,
+                            fontWeight = FontWeight.Medium,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                        )
+                    }
                 }
             }
 
@@ -405,6 +441,86 @@ fun AndroidUI_2() {
                 onQueryChange = { searchQuery = it },
                 modifier = Modifier.padding(bottom = 16.dp)
             )
+
+            // Quick Stats Row
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                val completedCount = interests.count { it.isCompleted }
+                val totalCount = interests.size
+
+                // Completed Stats
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(CardBackground)
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .shadow(4.dp, RoundedCornerShape(12.dp))
+                ) {
+                    Text(
+                        text = "$completedCount",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = SuccessColor
+                    )
+                    Text(
+                        text = "Completed",
+                        fontSize = 12.sp,
+                        color = TextSecondary,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+
+                // Total Stats
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(CardBackground)
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .shadow(4.dp, RoundedCornerShape(12.dp))
+                ) {
+                    Text(
+                        text = "$totalCount",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = PrimaryAccent
+                    )
+                    Text(
+                        text = "Total",
+                        fontSize = 12.sp,
+                        color = TextSecondary,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+
+                // Progress Indicator
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(CardBackground)
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .shadow(4.dp, RoundedCornerShape(12.dp))
+                ) {
+                    Text(
+                        text = "${(completedCount.toFloat() / totalCount * 100).toInt()}%",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = if (completedCount.toFloat() / totalCount >= 0.7f) SuccessColor else WarningColor
+                    )
+                    Text(
+                        text = "Progress",
+                        fontSize = 12.sp,
+                        color = TextSecondary,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
 
             // Interests List or Empty State
             if (filteredInterests.isEmpty()) {
