@@ -8,6 +8,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
@@ -198,7 +199,7 @@ fun InterestCard(
     }
 }
 
-// Modern Bottom Navigation Component
+// Enhanced Bottom Navigation Component with notification badges
 @Composable
 fun ModernBottomNavigation(
     modifier: Modifier = Modifier
@@ -209,12 +210,19 @@ fun ModernBottomNavigation(
         Triple("Interested", Icons.Outlined.Favorite, true)
     )
 
+    val notificationCounts = mapOf(
+        "For You" to 0,
+        "Shared" to 2,
+        "Interested" to 0
+    )
+
     Surface(
         modifier = modifier
             .fillMaxWidth()
             .height(80.dp),
         color = CardBackground,
-        shadowElevation = 16.dp
+        shadowElevation = 16.dp,
+        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
     ) {
         Row(
             modifier = Modifier
@@ -224,6 +232,8 @@ fun ModernBottomNavigation(
             verticalAlignment = Alignment.CenterVertically
         ) {
             navigationItems.forEach { (label, icon, isSelected) ->
+                val notificationCount = notificationCounts[label] ?: 0
+
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
@@ -233,32 +243,56 @@ fun ModernBottomNavigation(
                         .padding(8.dp)
                 ) {
                     Box(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(
-                                if (isSelected) {
-                                    Brush.linearGradient(
-                                        colors = listOf(PrimaryAccent, SecondaryAccent)
-                                    )
-                                } else {
-                                    Brush.linearGradient(
-                                        colors = listOf(
-                                            Color.Gray.copy(alpha = 0.1f),
-                                            Color.Gray.copy(alpha = 0.05f)
-                                        )
-                                    )
-                                }
-                            ),
-                        contentAlignment = Alignment.Center
+                        modifier = Modifier.size(48.dp),
+                        contentAlignment = Alignment.TopEnd
                     ) {
-                        Icon(
-                            imageVector = icon,
-                            contentDescription = label,
-                            tint = if (isSelected) Color.White else TextSecondary,
-                            modifier = Modifier.size(24.dp)
-                        )
+                        Box(
+                            modifier = Modifier
+                                .size(48.dp)
+                                .clip(RoundedCornerShape(14.dp))
+                                .background(
+                                    if (isSelected) {
+                                        Brush.linearGradient(
+                                            colors = listOf(PrimaryAccent, SecondaryAccent)
+                                        )
+                                    } else {
+                                        Brush.linearGradient(
+                                            colors = listOf(
+                                                Color.Gray.copy(alpha = 0.1f),
+                                                Color.Gray.copy(alpha = 0.05f)
+                                            )
+                                        )
+                                    }
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = icon,
+                                contentDescription = label,
+                                tint = if (isSelected) Color.White else TextSecondary,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+
+                        // Notification badge
+                        if (notificationCount > 0) {
+                            Box(
+                                modifier = Modifier
+                                    .size(20.dp)
+                                    .clip(CircleShape)
+                                    .background(WarningColor),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = if (notificationCount > 9) "9+" else notificationCount.toString(),
+                                    color = Color.White,
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
                     }
+
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = label,
@@ -521,6 +555,23 @@ fun AndroidUI_2() {
                     )
                 }
             }
+
+            // Subtle divider
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(
+                        Brush.horizontalGradient(
+                            colors = listOf(
+                                Color.Transparent,
+                                TextSecondary.copy(alpha = 0.1f),
+                                Color.Transparent
+                            )
+                        )
+                    )
+                    .padding(vertical = 8.dp)
+            )
 
             // Interests List or Empty State
             if (filteredInterests.isEmpty()) {
