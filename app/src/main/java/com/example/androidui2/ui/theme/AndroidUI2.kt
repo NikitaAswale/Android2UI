@@ -386,6 +386,13 @@ fun AndroidUI_2() {
     )
 
     var searchQuery by remember { mutableStateOf("") }
+    var showWelcome by remember { mutableStateOf(true) }
+
+    // Auto-hide welcome message after 3 seconds
+    LaunchedEffect(Unit) {
+        delay(3000)
+        showWelcome = false
+    }
 
     // Filter interests based on search query
     val filteredInterests = remember(searchQuery) {
@@ -629,6 +636,90 @@ fun AndroidUI_2() {
                 .padding(bottom = 16.dp)
         ) {
             ModernBottomNavigation()
+        }
+
+        // Welcome overlay
+        if (showWelcome) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.7f))
+                    .clickable { showWelcome = false },
+                contentAlignment = Alignment.Center
+            ) {
+                Card(
+                    modifier = Modifier
+                        .padding(32.dp)
+                        .shadow(16.dp, RoundedCornerShape(24.dp)),
+                    colors = CardDefaults.cardColors(containerColor = CardBackground),
+                    shape = RoundedCornerShape(24.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(32.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        // Animated welcome icon
+                        val welcomeTransition = rememberInfiniteTransition()
+                        val welcomeScale by welcomeTransition.animateFloat(
+                            initialValue = 0.8f,
+                            targetValue = 1.2f,
+                            animationSpec = infiniteRepeatable(
+                                animation = tween(800, easing = LinearEasing),
+                                repeatMode = RepeatMode.Reverse
+                            )
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .size(80.dp)
+                                .scale(welcomeScale)
+                                .clip(RoundedCornerShape(20.dp))
+                                .background(
+                                    brush = Brush.linearGradient(
+                                        colors = listOf(PrimaryAccent, SecondaryAccent)
+                                    )
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Favorite,
+                                contentDescription = "Welcome",
+                                tint = Color.White,
+                                modifier = Modifier.size(40.dp)
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        Text(
+                            text = "Welcome to Interests!",
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = TextPrimary,
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Text(
+                            text = "Discover what matters to you",
+                            fontSize = 16.sp,
+                            color = TextSecondary,
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                        )
+
+                        Spacer(modifier = Modifier.height(24.dp))
+
+                        Text(
+                            text = "Tap anywhere to continue",
+                            fontSize = 14.sp,
+                            color = TextSecondary.copy(alpha = 0.7f),
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                        )
+                    }
+                }
+            }
         }
     }
 }
