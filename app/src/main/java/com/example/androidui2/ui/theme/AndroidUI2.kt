@@ -465,7 +465,7 @@ fun AndroidUI_2() {
                         modifier = Modifier.width(200.dp)
                     ) {
                         Text(
-                            text = "Discover what matters to you",
+                            text = "Find what interests you most",
                             fontSize = 16.sp,
                             color = PrimaryAccent,
                             fontWeight = FontWeight.Medium,
