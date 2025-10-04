@@ -335,7 +335,7 @@ fun SearchBar(
                 .onFocusChanged { isFocused = it.isFocused },
             placeholder = {
                 Text(
-                    "Search interests...",
+                    "Explore interests...",
                     color = TextSecondary,
                     fontSize = 16.sp
                 )
