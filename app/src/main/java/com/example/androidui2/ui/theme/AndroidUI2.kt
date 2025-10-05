@@ -337,7 +337,7 @@ fun SearchBar(
                 Text(
                     "Explore interests...",
                     color = TextSecondary,
-                    fontSize = 16.sp
+                    fontSize = 17.sp
                 )
             },
             leadingIcon = {
@@ -606,7 +606,7 @@ fun AndroidUI_2() {
                             fontWeight = FontWeight.Medium
                         )
                         Text(
-                            text = "Try adjusting your search",
+                            text = "Try a different search term",
                             fontSize = 14.sp,
                             color = TextSecondary.copy(alpha = 0.7f)
                         )
@@ -703,7 +703,7 @@ fun AndroidUI_2() {
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Text(
-                            text = "Discover what matters to you",
+                            text = "Discover your interests",
                             fontSize = 16.sp,
                             color = TextSecondary,
                             textAlign = androidx.compose.ui.text.style.TextAlign.Center
