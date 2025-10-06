@@ -703,7 +703,7 @@ fun AndroidUI_2() {
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Text(
-                            text = "Discover your interests",
+                            text = "Explore your passions",
                             fontSize = 16.sp,
                             color = TextSecondary,
                             textAlign = androidx.compose.ui.text.style.TextAlign.Center
