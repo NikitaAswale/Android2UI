@@ -712,7 +712,7 @@ fun AndroidUI_2() {
                         Spacer(modifier = Modifier.height(24.dp))
 
                         Text(
-                            text = "Tap anywhere to continue",
+                            text = "Touch to begin",
                             fontSize = 14.sp,
                             color = TextSecondary.copy(alpha = 0.7f),
                             textAlign = androidx.compose.ui.text.style.TextAlign.Center
