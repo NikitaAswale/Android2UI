@@ -712,7 +712,7 @@ fun AndroidUI_2() {
                         Spacer(modifier = Modifier.height(24.dp))
 
                         Text(
-                            text = "Touch to begin",
+                            text = "Ready to explore?",
                             fontSize = 14.sp,
                             color = TextSecondary.copy(alpha = 0.7f),
                             textAlign = androidx.compose.ui.text.style.TextAlign.Center
