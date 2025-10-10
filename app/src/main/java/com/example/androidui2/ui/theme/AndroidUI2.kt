@@ -561,6 +561,29 @@ fun AndroidUI_2() {
                         fontWeight = FontWeight.Medium
                     )
                 }
+
+                // Pending Stats
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(CardBackground)
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .shadow(4.dp, RoundedCornerShape(12.dp))
+                ) {
+                    Text(
+                        text = "${totalCount - completedCount}",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = WarningColor
+                    )
+                    Text(
+                        text = "Pending",
+                        fontSize = 12.sp,
+                        color = TextSecondary,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
             }
 
             // Subtle divider
