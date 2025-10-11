@@ -568,7 +568,7 @@ fun AndroidUI_2() {
                     modifier = Modifier
                         .clip(RoundedCornerShape(12.dp))
                         .background(CardBackground)
-                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .padding(horizontal = 18.dp, vertical = 12.dp)
                         .shadow(4.dp, RoundedCornerShape(12.dp))
                 ) {
                     Text(
