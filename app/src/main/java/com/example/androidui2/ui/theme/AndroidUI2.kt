@@ -578,7 +578,7 @@ fun AndroidUI_2() {
                         color = WarningColor
                     )
                     Text(
-                        text = "Pending",
+                        text = "To Do",
                         fontSize = 12.sp,
                         color = TextSecondary,
                         fontWeight = FontWeight.Medium
