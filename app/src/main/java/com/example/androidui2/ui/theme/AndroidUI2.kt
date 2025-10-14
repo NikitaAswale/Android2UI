@@ -577,12 +577,23 @@ fun AndroidUI_2() {
                         fontWeight = FontWeight.Bold,
                         color = WarningColor
                     )
-                    Text(
-                        text = "To Do",
-                        fontSize = 12.sp,
-                        color = TextSecondary,
-                        fontWeight = FontWeight.Medium
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.List,
+                            contentDescription = null,
+                            modifier = Modifier.size(12.dp),
+                            tint = TextSecondary
+                        )
+                        Text(
+                            text = "To Do",
+                            fontSize = 12.sp,
+                            color = TextSecondary,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
                 }
             }
 
