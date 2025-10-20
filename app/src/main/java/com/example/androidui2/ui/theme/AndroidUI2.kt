@@ -452,7 +452,7 @@ fun AndroidUI_2() {
                         Spacer(modifier = Modifier.width(12.dp))
 
                         Text(
-                            text = "My Interest",
+                            text = "My Interests",
                             fontSize = 32.sp,
                             fontWeight = FontWeight.Bold,
                             color = TextPrimary
