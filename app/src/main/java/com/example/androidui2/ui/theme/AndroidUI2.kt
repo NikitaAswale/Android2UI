@@ -188,7 +188,7 @@ fun InterestCard(
             ) {
                 Icon(
                     imageVector = if (item.isCompleted) Icons.Outlined.CheckCircle else Icons.Outlined.Add,
-                    contentDescription = if (item.isCompleted) "Completed by you" else "Add",
+                    contentDescription = if (item.isCompleted) "Completed by you" else "Add it",
                     tint = if (item.isCompleted) Color.White else WarningColor,
                     modifier = Modifier.size(22.dp)
                 )
