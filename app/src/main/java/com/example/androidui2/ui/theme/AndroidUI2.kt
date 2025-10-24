@@ -351,7 +351,7 @@ fun SearchBar(
                     IconButton(onClick = { onQueryChange("") }) {
                         Icon(
                             imageVector = Icons.Outlined.Clear,
-                            contentDescription = "Clear",
+                            contentDescription = "Clear..",
                             tint = TextSecondary,
                             modifier = Modifier.size(20.dp)
                         )
