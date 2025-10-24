@@ -341,7 +341,7 @@ fun SearchBar(
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Outlined.Search,
-                    contentDescription = "Search",
+                    contentDescription = "Search it",
                     tint = PrimaryAccent,
                     modifier = Modifier.size(20.dp)
                 )
