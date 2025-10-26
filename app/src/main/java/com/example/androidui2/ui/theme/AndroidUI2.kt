@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
@@ -468,7 +469,7 @@ fun AndroidUI_2() {
                             color = PrimaryAccent,
                             fontWeight = FontWeight.Medium,
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            textAlign = TextAlign.Center
                         )
                     }
                 }
@@ -729,7 +730,7 @@ fun AndroidUI_2() {
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold,
                             color = TextPrimary,
-                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            textAlign = TextAlign.Center
                         )
 
                         Spacer(modifier = Modifier.height(8.dp))
@@ -738,7 +739,7 @@ fun AndroidUI_2() {
                             text = "Explore your passions",
                             fontSize = 16.sp,
                             color = TextSecondary,
-                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            textAlign = TextAlign.Center
                         )
 
                         Spacer(modifier = Modifier.height(24.dp))
@@ -747,7 +748,7 @@ fun AndroidUI_2() {
                             text = "Ready to explore?",
                             fontSize = 14.sp,
                             color = TextSecondary.copy(alpha = 0.7f),
-                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            textAlign = TextAlign.Center
                         )
                     }
                 }
