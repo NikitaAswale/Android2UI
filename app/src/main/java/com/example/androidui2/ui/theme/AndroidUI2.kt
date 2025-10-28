@@ -119,7 +119,7 @@ fun InterestCard(
                 Icon(
                     imageVector = item.icon,
                     contentDescription = item.title,
-                    modifier = Modifier.size(28.dp),
+                    modifier = Modifier.size(32.dp),
                     tint = Color.White
                 )
             }
