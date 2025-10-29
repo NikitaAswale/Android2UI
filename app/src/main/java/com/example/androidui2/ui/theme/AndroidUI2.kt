@@ -434,7 +434,7 @@ fun AndroidUI_2() {
                             initialValue = 0.3f,
                             targetValue = 1f,
                             animationSpec = infiniteRepeatable(
-                                animation = tween(1500, easing = LinearEasing),
+                                animation = tween(1400, easing = LinearEasing),
                                 repeatMode = RepeatMode.Reverse
                             )
                         )
