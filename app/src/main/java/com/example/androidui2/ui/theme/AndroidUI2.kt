@@ -2,10 +2,12 @@ package com.example.androidui2.ui.theme
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,6 +32,107 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+// Enhanced Floating Action Button Component
+@Composable
+fun AddInterestFAB(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var isPressed by remember { mutableStateOf(false) }
+
+    val scale by animateFloatAsState(
+        targetValue = if (isPressed) 0.9f else 1f,
+        animationSpec = tween(durationMillis = 100)
+    )
+
+    FloatingActionButton(
+        onClick = {
+            isPressed = true
+            onClick()
+            // Reset press state after animation
+            kotlinx.coroutines.GlobalScope.launch {
+                delay(100)
+                isPressed = false
+            }
+        },
+        modifier = modifier
+            .scale(scale)
+            .shadow(
+                elevation = 12.dp,
+                shape = CircleShape,
+                spotColor = PrimaryAccent.copy(alpha = 0.3f)
+            ),
+        containerColor = PrimaryAccent,
+        contentColor = Color.White,
+        shape = CircleShape
+    ) {
+        Icon(
+            imageVector = Icons.Outlined.Add,
+            contentDescription = "Add new interest",
+            modifier = Modifier.size(28.dp)
+        )
+    }
+}
+
+// Category Filter Chips Component
+@Composable
+fun CategoryFilterChips(
+    selectedCategory: String?,
+    onCategorySelected: (String?) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val categories = listOf("All", "UI/UX", "Development", "Multimedia", "Entertainment", "Lifestyle")
+
+    LazyRow(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items(categories) { category ->
+            val isSelected = selectedCategory == category || (category == "All" && selectedCategory == null)
+
+            Card(
+                modifier = Modifier
+                    .clickable {
+                        onCategorySelected(if (category == "All") null else category)
+                    }
+                    .border(
+                        width = 1.dp,
+                        color = if (isSelected) PrimaryAccent.copy(alpha = 0.3f) else TextSecondary.copy(alpha = 0.2f),
+                        shape = RoundedCornerShape(16.dp)
+                    ),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isSelected) PrimaryAccent.copy(alpha = 0.1f) else CardBackground
+                ),
+                shape = RoundedCornerShape(16.dp)
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    if (isSelected) {
+                        Icon(
+                            imageVector = Icons.Outlined.Check,
+                            contentDescription = "Selected",
+                            modifier = Modifier.size(16.dp),
+                            tint = PrimaryAccent
+                        )
+                    }
+                    Text(
+                        text = category,
+                        fontSize = 14.sp,
+                        fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                        color = if (isSelected) PrimaryAccent else TextSecondary
+                    )
+                }
+            }
+        }
+    }
+}
 
 // Data class for Interest items
 data class InterestItem(
@@ -381,10 +484,22 @@ fun AndroidUI_2() {
         InterestItem("Android TV", Icons.Outlined.DateRange, false, "TV & Entertainment"),
         InterestItem("Architecture", Icons.Outlined.MailOutline, true, "Development"),
         InterestItem("Camera & Media", Icons.Outlined.Info, false, "Multimedia"),
-        InterestItem("Compose", Icons.Outlined.ShoppingCart, true, "UI Framework")
+        InterestItem("Compose", Icons.Outlined.ShoppingCart, true, "UI Framework"),
+        InterestItem("Kotlin", Icons.Outlined.Menu, true, "Development"),
+        InterestItem("Material Design", Icons.Outlined.Star, true, "UI/UX"),
+        InterestItem("Wear OS", Icons.Outlined.DateRange, false, "Wearables"),
+        InterestItem("Firebase", Icons.Outlined.Info, true, "Backend"),
+        InterestItem("Machine Learning", Icons.Outlined.MailOutline, false, "AI/ML"),
+        InterestItem("Security", Icons.Outlined.Lock, true, "Development"),
+        InterestItem("Testing", Icons.Outlined.Clear, false, "Development"),
+        InterestItem("Performance", Icons.Outlined.Search, true, "Development"),
+        InterestItem("Gaming", Icons.Outlined.ShoppingCart, false, "Entertainment"),
+        InterestItem("Health & Fitness", Icons.Outlined.Favorite, true, "Lifestyle"),
+        InterestItem("Productivity", Icons.Outlined.CheckCircle, true, "Tools")
     )
 
     var searchQuery by remember { mutableStateOf("") }
+    var selectedCategory by remember { mutableStateOf<String?>(null) }
     var showWelcome by remember { mutableStateOf(true) }
 
     // Auto-hide welcome message after 3 seconds
@@ -393,15 +508,14 @@ fun AndroidUI_2() {
         showWelcome = false
     }
 
-    // Filter interests based on search query
-    val filteredInterests = remember(searchQuery) {
-        if (searchQuery.isBlank()) {
-            interests
-        } else {
-            interests.filter {
-                it.title.contains(searchQuery, ignoreCase = true) ||
-                it.category.contains(searchQuery, ignoreCase = true)
-            }
+    // Filter interests based on search query and category
+    val filteredInterests = remember(searchQuery, selectedCategory) {
+        interests.filter { interest ->
+            val matchesSearch = searchQuery.isBlank() ||
+                    interest.title.contains(searchQuery, ignoreCase = true) ||
+                    interest.category.contains(searchQuery, ignoreCase = true)
+            val matchesCategory = selectedCategory == null || interest.category == selectedCategory
+            matchesSearch && matchesCategory
         }
     }
 
@@ -479,7 +593,14 @@ fun AndroidUI_2() {
             SearchBar(
                 query = searchQuery,
                 onQueryChange = { searchQuery = it },
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            // Category Filter Chips
+            CategoryFilterChips(
+                selectedCategory = selectedCategory,
+                onCategorySelected = { selectedCategory = it },
+                modifier = Modifier.padding(bottom = 8.dp)
             )
 
             // Quick Stats Row
@@ -669,6 +790,19 @@ fun AndroidUI_2() {
                 .padding(bottom = 16.dp)
         ) {
             ModernBottomNavigation()
+        }
+
+        // Floating Action Button
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(end = 24.dp, bottom = 100.dp)
+        ) {
+            AddInterestFAB(
+                onClick = {
+                    // Handle add new interest - could show dialog or navigate to add screen
+                }
+            )
         }
 
         // Welcome overlay
