@@ -139,7 +139,8 @@ data class InterestItem(
     val title: String,
     val icon: ImageVector,
     val isCompleted: Boolean = false,
-    val category: String = ""
+    val category: String = "",
+    val isNew: Boolean = false
 )
 
 // Modern Interest Card Component with enhanced animations
@@ -233,13 +234,35 @@ fun InterestCard(
             Column(
                 modifier = Modifier.weight(1f)
             ) {
-                Text(
-                    text = item.title,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = TextPrimary,
-                    maxLines = 1
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = item.title,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = TextPrimary,
+                        maxLines = 1,
+                        modifier = Modifier.weight(1f)
+                    )
+                    if (item.isNew) {
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Surface(
+                            shape = RoundedCornerShape(8.dp),
+                            color = WarningColor,
+                            modifier = Modifier.padding(vertical = 2.dp)
+                        ) {
+                            Text(
+                                text = "New",
+                                fontSize = 10.sp,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                            )
+                        }
+                    }
+                }
                 if (item.category.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(4.dp))
                     Surface(
@@ -487,15 +510,15 @@ fun AndroidUI_2() {
         InterestItem("Compose", Icons.Outlined.ShoppingCart, true, "UI Framework"),
         InterestItem("Kotlin", Icons.Outlined.Menu, true, "Development"),
         InterestItem("Material Design", Icons.Outlined.Star, true, "UI/UX"),
-        InterestItem("Wear OS", Icons.Outlined.DateRange, false, "Wearables"),
-        InterestItem("Firebase", Icons.Outlined.Info, true, "Backend"),
-        InterestItem("Machine Learning", Icons.Outlined.MailOutline, false, "AI/ML"),
+        InterestItem("Wear OS", Icons.Outlined.DateRange, false, "Wearables", true),
+        InterestItem("Firebase", Icons.Outlined.Info, true, "Backend", true),
+        InterestItem("Machine Learning", Icons.Outlined.MailOutline, false, "AI/ML", true),
         InterestItem("Security", Icons.Outlined.Lock, true, "Development"),
         InterestItem("Testing", Icons.Outlined.Clear, false, "Development"),
         InterestItem("Performance", Icons.Outlined.Search, true, "Development"),
         InterestItem("Gaming", Icons.Outlined.ShoppingCart, false, "Entertainment"),
-        InterestItem("Health & Fitness", Icons.Outlined.Favorite, true, "Lifestyle"),
-        InterestItem("Productivity", Icons.Outlined.CheckCircle, true, "Tools")
+        InterestItem("Health & Fitness", Icons.Outlined.Favorite, true, "Lifestyle", true),
+        InterestItem("Productivity", Icons.Outlined.CheckCircle, true, "Tools", true)
     )
 
     var searchQuery by remember { mutableStateOf("") }
@@ -568,8 +591,27 @@ fun AndroidUI_2() {
                             text = "My Interest",
                             fontSize = 32.sp,
                             fontWeight = FontWeight.Bold,
-                            color = TextPrimary
+                            color = TextPrimary,
+                            modifier = Modifier.weight(1f)
                         )
+
+                        // Mini settings button
+                        IconButton(
+                            onClick = {
+                                // Handle settings - could open settings screen
+                            },
+                            modifier = Modifier
+                                .size(32.dp)
+                                .clip(CircleShape)
+                                .background(TextSecondary.copy(alpha = 0.1f))
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Settings,
+                                contentDescription = "Settings",
+                                modifier = Modifier.size(18.dp),
+                                tint = TextSecondary
+                            )
+                        }
                     }
 
                     Surface(
@@ -668,12 +710,27 @@ fun AndroidUI_2() {
                         .padding(horizontal = 16.dp, vertical = 12.dp)
                         .shadow(4.dp, RoundedCornerShape(12.dp))
                 ) {
-                    Text(
-                        text = "${(completedCount.toFloat() / totalCount * 100).toInt()}%",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = if (completedCount.toFloat() / totalCount >= 0.7f) SuccessColor else WarningColor
-                    )
+                    // Circular Progress Indicator
+                    val progressValue = completedCount.toFloat() / totalCount
+                    Box(
+                        modifier = Modifier.size(48.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(
+                            progress = { progressValue },
+                            modifier = Modifier.fillMaxSize(),
+                            color = if (progressValue >= 0.7f) SuccessColor else WarningColor,
+                            strokeWidth = 4.dp,
+                            trackColor = TextSecondary.copy(alpha = 0.2f)
+                        )
+                        Text(
+                            text = "${(progressValue * 100).toInt()}%",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (progressValue >= 0.7f) SuccessColor else WarningColor
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = "Progress",
                         fontSize = 12.sp,
@@ -771,6 +828,31 @@ fun AndroidUI_2() {
                     modifier = Modifier.weight(1f),
                     contentPadding = PaddingValues(bottom = 100.dp)
                 ) {
+                    // Pull to refresh hint
+                    item {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 24.dp, vertical = 8.dp),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Refresh,
+                                contentDescription = null,
+                                modifier = Modifier.size(14.dp),
+                                tint = TextSecondary.copy(alpha = 0.6f)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "Pull to refresh",
+                                fontSize = 12.sp,
+                                color = TextSecondary.copy(alpha = 0.6f),
+                                fontWeight = FontWeight.Normal
+                            )
+                        }
+                    }
+
                     items(filteredInterests) { interest ->
                         InterestCard(
                             item = interest,
