@@ -878,7 +878,7 @@ fun AndroidUI_2() {
         Box(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(end = 24.dp, bottom = 100.dp)
+                .padding(end = 25.dp, bottom = 100.dp)
         ) {
             AddInterestFAB(
                 onClick = {
