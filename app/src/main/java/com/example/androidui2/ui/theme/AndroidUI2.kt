@@ -933,7 +933,7 @@ fun AndroidUI_2() {
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Favorite,
-                                contentDescription = "Welcome",
+                                contentDescription = "Welcome Back",
                                 tint = Color.White,
                                 modifier = Modifier.size(40.dp)
                             )
