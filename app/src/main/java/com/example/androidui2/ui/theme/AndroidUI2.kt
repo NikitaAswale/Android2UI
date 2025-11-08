@@ -768,7 +768,7 @@ fun AndroidUI_2() {
                             text = "To Do",
                             fontSize = 12.sp,
                             color = TextSecondary,
-                            fontWeight = FontWeight.Medium
+                            fontWeight = FontWeight.SemiBold
                         )
                     }
                 }
