@@ -963,7 +963,7 @@ fun AndroidUI_2() {
                         Text(
                             text = "Ready to explore?",
                             fontSize = 14.sp,
-                            color = TextSecondary.copy(alpha = 0.7f),
+                            color = TextSecondary.copy(alpha = 0.5f),
                             textAlign = TextAlign.Center
                         )
                     }
