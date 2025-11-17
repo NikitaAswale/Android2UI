@@ -899,7 +899,7 @@ fun AndroidUI_2() {
                 Card(
                     modifier = Modifier
                         .padding(32.dp)
-                        .shadow(16.dp, RoundedCornerShape(24.dp)),
+                        .shadow(16.dp, RoundedCornerShape(12.dp)),
                     colors = CardDefaults.cardColors(containerColor = CardBackground),
                     shape = RoundedCornerShape(24.dp)
                 ) {
