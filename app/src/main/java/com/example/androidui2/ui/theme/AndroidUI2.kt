@@ -893,7 +893,7 @@ fun AndroidUI_2() {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color.Black.copy(alpha = 0.6f))
-                    .clickable { showWelcome = false },
+                    .clickable { showWelcome = true },
                 contentAlignment = Alignment.Center
             ) {
                 Card(
