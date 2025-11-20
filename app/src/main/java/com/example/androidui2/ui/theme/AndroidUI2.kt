@@ -952,7 +952,7 @@ fun AndroidUI_2() {
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Text(
-                            text = "Explore your passions",
+                            text = "Explore your passion",
                             fontSize = 16.sp,
                             color = TextSecondary,
                             textAlign = TextAlign.Center
