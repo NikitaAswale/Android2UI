@@ -504,7 +504,7 @@ fun AndroidUI_2() {
         InterestItem("Accessibility", Icons.Outlined.AccountCircle, true, "UI/UX"),
         InterestItem("Android Auto", Icons.Outlined.Build, false, "Automotive"),
         InterestItem("Android Studio Tools", Icons.Outlined.Menu, true, "Development"),
-        InterestItem("Android TV", Icons.Outlined.DateRange, false, "TV & Entertainment"),
+        InterestItem("Android TVs", Icons.Outlined.DateRange, false, "TV & Entertainment"),
         InterestItem("Architecture", Icons.Outlined.MailOutline, true, "Development"),
         InterestItem("Camera & Media", Icons.Outlined.Info, false, "Multimedia"),
         InterestItem("Compose", Icons.Outlined.ShoppingCart, true, "UI Framework"),
