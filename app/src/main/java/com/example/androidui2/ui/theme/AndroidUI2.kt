@@ -508,7 +508,7 @@ fun AndroidUI_2() {
         InterestItem("Architecture", Icons.Outlined.MailOutline, true, "Development"),
         InterestItem("Camera and Media", Icons.Outlined.Info, false, "Multimedia"),
         InterestItem("Compose", Icons.Outlined.ShoppingCart, true, "UI Framework"),
-        InterestItem("Kotlin", Icons.Outlined.Menu, true, "Development"),
+        InterestItem("Kotlin 2", Icons.Outlined.Menu, true, "Development"),
         InterestItem("Material Design", Icons.Outlined.Star, true, "UI/UX"),
         InterestItem("Wear OS", Icons.Outlined.DateRange, false, "Wearables", true),
         InterestItem("Firebase", Icons.Outlined.Info, true, "Backend", true),
