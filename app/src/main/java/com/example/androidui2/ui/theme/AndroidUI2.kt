@@ -505,7 +505,7 @@ fun AndroidUI_2() {
         InterestItem("Android Auto", Icons.Outlined.Build, false, "Automotive"),
         InterestItem("Android Studio Tools", Icons.Outlined.Menu, true, "Development"),
         InterestItem("Android TVs", Icons.Outlined.DateRange, false, "TV & Entertainment"),
-        InterestItem("Architectures", Icons.Outlined.MailOutline, true, "Development"),
+        InterestItem("Architecture", Icons.Outlined.MailOutline, true, "Development"),
         InterestItem("Camera and Media 2", Icons.Outlined.Info, false, "Multimedia"),
         InterestItem("Compose", Icons.Outlined.ShoppingCart, true, "UI Framework"),
         InterestItem("Kotlin 3", Icons.Outlined.Menu, true, "Development"),
