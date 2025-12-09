@@ -514,7 +514,7 @@ fun AndroidUI_2() {
         InterestItem("Firebase", Icons.Outlined.Info, true, "Backend", true),
         InterestItem("Machine Learning", Icons.Outlined.MailOutline, false, "AI/ML", true),
         InterestItem("Security", Icons.Outlined.Lock, true, "Development"),
-        InterestItem("Testing", Icons.Outlined.Clear, false, "Development"),
+        InterestItem("Testing 2", Icons.Outlined.Clear, false, "Development"),
         InterestItem("Performance", Icons.Outlined.Search, true, "Development"),
         InterestItem("Gaming", Icons.Outlined.ShoppingCart, false, "Entertainment"),
         InterestItem("Health & Fitness", Icons.Outlined.Favorite, true, "Lifestyle", true),
