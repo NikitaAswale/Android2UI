@@ -511,7 +511,7 @@ fun AndroidUI_2() {
         InterestItem("Kotlin 3", Icons.Outlined.Menu, true, "Development"),
         InterestItem("Material Design", Icons.Outlined.Star, true, "UI/UX"),
         InterestItem("Wear OS", Icons.Outlined.DateRange, false, "Wearables", true),
-        InterestItem("Firebase", Icons.Outlined.Info, true, "Backend", true),
+        InterestItem("Firebase control", Icons.Outlined.Info, true, "Backend", true),
         InterestItem("Machine Learning", Icons.Outlined.MailOutline, false, "AI/ML", true),
         InterestItem("Security", Icons.Outlined.Lock, true, "Development"),
         InterestItem("Testing 2", Icons.Outlined.Clear, false, "Development"),
