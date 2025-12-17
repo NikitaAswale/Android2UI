@@ -510,7 +510,7 @@ fun AndroidUI_2() {
         InterestItem("Compose", Icons.Outlined.ShoppingCart, true, "UI Framework"),
         InterestItem("Kotlin 3", Icons.Outlined.Menu, true, "Development"),
         InterestItem("Material Design", Icons.Outlined.Star, true, "UI/UX"),
-        InterestItem("Wear OS 2", Icons.Outlined.DateRange, false, "Wearables", true),
+        InterestItem("Wear OS 2", Icons.Outlined.DateRange, true, "Wearables", true),
         InterestItem("Firebase control", Icons.Outlined.Info, true, "Backend", true),
         InterestItem("Machine Learning", Icons.Outlined.MailOutline, false, "AI/ML", true),
         InterestItem("Security", Icons.Outlined.Lock, true, "Development"),
