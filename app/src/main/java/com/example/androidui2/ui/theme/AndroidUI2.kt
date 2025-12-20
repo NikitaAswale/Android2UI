@@ -535,7 +535,7 @@ fun AndroidUI_2() {
     val filteredInterests = remember(searchQuery, selectedCategory) {
         interests.filter { interest ->
             val matchesSearch = searchQuery.isBlank() ||
-                    interest.title.contains(searchQuery, ignoreCase = true) ||
+                    interest.title.contains(searchQuery, ignoreCase = false) ||
                     interest.category.contains(searchQuery, ignoreCase = true)
             val matchesCategory = selectedCategory == null || interest.category == selectedCategory
             matchesSearch && matchesCategory
