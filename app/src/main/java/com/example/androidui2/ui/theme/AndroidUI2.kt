@@ -624,7 +624,7 @@ fun AndroidUI_2() {
                             fontSize = 16.sp,
                             color = PrimaryAccent,
                             fontWeight = FontWeight.Medium,
-                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
                             textAlign = TextAlign.Center
                         )
                     }
