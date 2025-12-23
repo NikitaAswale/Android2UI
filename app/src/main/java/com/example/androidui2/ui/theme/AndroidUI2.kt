@@ -607,7 +607,7 @@ fun AndroidUI_2() {
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Settings,
-                                contentDescription = "Settings",
+                                contentDescription = "Setting",
                                 modifier = Modifier.size(18.dp),
                                 tint = TextSecondary
                             )
