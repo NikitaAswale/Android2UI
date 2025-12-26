@@ -623,7 +623,7 @@ fun AndroidUI_2() {
                             text = "Find what interests you most",
                             fontSize = 16.sp,
                             color = PrimaryAccent,
-                            fontWeight = FontWeight.Medium,
+                            fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
                             textAlign = TextAlign.Center
                         )
