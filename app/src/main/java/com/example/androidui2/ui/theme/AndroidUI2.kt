@@ -616,7 +616,7 @@ fun AndroidUI_2() {
 
                     Surface(
                         shape = RoundedCornerShape(12.dp),
-                        color = PrimaryAccent.copy(alpha = 0.1f),
+                        color = PrimaryAccent.copy(alpha = 0.2f),
                         modifier = Modifier.width(200.dp)
                     ) {
                         Text(
