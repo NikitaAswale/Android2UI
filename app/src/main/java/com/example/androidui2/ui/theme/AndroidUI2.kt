@@ -299,7 +299,7 @@ fun InterestCard(
                     .background(
                         if (item.isCompleted) {
                             Brush.linearGradient(
-                                colors = listOf(SuccessColor, SuccessColor.copy(alpha = 0.8f))
+                                colors = listOf(SuccessColor, SuccessColor.copy(alpha = 0.6f))
                             )
                         } else {
                             Brush.linearGradient(
