@@ -257,7 +257,7 @@ fun InterestCard(
                                 text = "New",
                                 fontSize = 10.sp,
                                 color = Color.White,
-                                fontWeight = FontWeight.Bold,
+                                fontWeight = FontWeight.Medium,
                                 modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                             )
                         }
