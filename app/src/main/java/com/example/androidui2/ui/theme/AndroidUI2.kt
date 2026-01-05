@@ -254,7 +254,7 @@ fun InterestCard(
                             modifier = Modifier.padding(vertical = 2.dp)
                         ) {
                             Text(
-                                text = "New",
+                                text = "New Topic",
                                 fontSize = 10.sp,
                                 color = Color.White,
                                 fontWeight = FontWeight.Medium,
