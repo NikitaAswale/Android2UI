@@ -83,7 +83,7 @@ fun CategoryFilterChips(
     onCategorySelected: (String?) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val categories = listOf("All", "UI/UX", "Development", "Multimedia", "Entertainment", "Lifestyle")
+    val categories = listOf("All", "UI-UX", "Development", "Multimedia", "Entertainment", "Lifestyle")
 
     LazyRow(
         modifier = modifier
