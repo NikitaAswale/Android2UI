@@ -240,7 +240,7 @@ fun InterestCard(
                 ) {
                     Text(
                         text = item.title,
-                        fontSize = 18.sp,
+                        fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = TextPrimary,
                         maxLines = 1,
