@@ -266,8 +266,8 @@ fun InterestCard(
                 if (item.category.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(4.dp))
                     Surface(
-                        shape = RoundedCornerShape(12.dp),
-                        color = PrimaryAccent.copy(alpha = 0.1f),
+                        shape = RoundedCornerShape(16.dp),
+                        color = PrimaryAccent.copy(alpha = 0.2f),
                         modifier = Modifier.width(32.dp)
                     ) {
                         Text(
