@@ -243,7 +243,7 @@ fun InterestCard(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         color = TextPrimary,
-                        maxLines = 3,
+                        maxLines = 2,
                         modifier = Modifier.weight(1f)
                     )
                     if (item.isNew) {
