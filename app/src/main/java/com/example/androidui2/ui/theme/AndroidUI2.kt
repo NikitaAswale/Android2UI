@@ -249,7 +249,7 @@ fun InterestCard(
                     if (item.isNew) {
                         Spacer(modifier = Modifier.width(16.dp))
                         Surface(
-                            shape = RoundedCornerShape(8.dp),
+                            shape = RoundedCornerShape(16.dp),
                             color = WarningColor,
                             modifier = Modifier.padding(vertical = 2.dp)
                         ) {
