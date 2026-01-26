@@ -62,7 +62,7 @@ fun AddInterestFAB(
             .shadow(
                 elevation = 12.dp,
                 shape = CircleShape,
-                spotColor = PrimaryAccent.copy(alpha = 0.3f)
+                spotColor = PrimaryAccent.copy(alpha = 0.2f)
             ),
         containerColor = PrimaryAccent,
         contentColor = Color.White,
