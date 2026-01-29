@@ -43,7 +43,7 @@ fun AddInterestFAB(
     var isPressed by remember { mutableStateOf(false) }
 
     val scale by animateFloatAsState(
-        targetValue = if (isPressed) 0.9f else 1f,
+        targetValue = if (isPressed) 0.8f else 1f,
         animationSpec = tween(durationMillis = 100)
     )
 
