@@ -403,7 +403,7 @@ fun ModernBottomNavigation(
                         if (notificationCount > 0) {
                             Box(
                                 modifier = Modifier
-                                    .size(20.dp)
+                                    .size(24.dp)
                                     .clip(CircleShape)
                                     .background(WarningColor),
                                 contentAlignment = Alignment.Center
