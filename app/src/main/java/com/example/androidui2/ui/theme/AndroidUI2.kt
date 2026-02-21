@@ -517,7 +517,7 @@ fun AndroidUI_2() {
         InterestItem("Testing 2", Icons.Outlined.Clear, false, "Development"),
         InterestItem("Performance", Icons.Outlined.Search, true, "Development"),
         InterestItem("Gaming", Icons.Outlined.ShoppingCart, false, "Entertainment"),
-        InterestItem("Health & Fitness", Icons.Outlined.Favorite, true, "Lifestyle", true),
+        InterestItem("Health & Fitness 2", Icons.Outlined.Favorite, true, "Lifestyle", true),
         InterestItem("Productivity", Icons.Outlined.CheckCircle, true, "Tools", true)
     )
 
