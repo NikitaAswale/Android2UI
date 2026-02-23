@@ -518,7 +518,7 @@ fun AndroidUI_2() {
         InterestItem("Performance", Icons.Outlined.Search, true, "Development"),
         InterestItem("Gaming", Icons.Outlined.ShoppingCart, false, "Entertainment"),
         InterestItem("Health & Fitness 2", Icons.Outlined.Favorite, true, "Lifestyle", true),
-        InterestItem("Productivity", Icons.Outlined.CheckCircle, true, "Tools", true)
+        InterestItem("Productivity 2", Icons.Outlined.CheckCircle, true, "Tools", true)
     )
 
     var searchQuery by remember { mutableStateOf("") }
